@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <f:facet name="first" >
+            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+            <meta name="apple-mobile-web-app-capable" content="yes" />
+        </f:facet>
+        <title>#{msg.title}</title>
+        <h:outputScript name="js/ripple.js" library="ultima-layout" />
+        <h:outputScript name="js/layout.js" library="ultima-layout" />
+        <style type="text/css">
+            .ui-selectonemenu .ui-selectonemenu-label {
+                text-align: center;
+            }
+            .label{
+                text-align: left;
+            }
+        </style>
+    </h:head>
+    <h:body>
+        <p:layout fullPage="true" style="border: none">
+
+            <f:view contentType="text/html" id="fview">
+                <p:layoutUnit position="center" style="border: none">
+                    <h:form id="registerForm" styleClass="login-body" style="overflow:auto;height:100%">
+                        <div class="card login-panel ui-fluid" style="width: 800px; max-height: 80vh;overflow: auto">
+
+                            <p:wizard flowListener="#{registerController.onFlowProcess}" showStepStatus="false" showNavBar="${registerController.selectedPersonType != null}" nextLabel="#{msg.next}" backLabel="#{msg.back}" style="overflow: auto; height: 100%;">
+                                <p:tab id="location" title="location" >
+                                    <p:panel header="#{msg.countryHeader}">
+                                        <h:panelGrid columns="2" columnClasses="label, value, messages">
+                                            <p:outputLabel value="#{msg.country}" for="country"/>
+                                            <p:selectOneMenu id="country" value="#{registerController.selectedCountry}" converter="#{countryConverter}" required="true">
+                                                <f:selectItem itemLabel="#{msg.SelectOne}" noSelectionOption="true" itemDisabled="true"/>
+                                                <f:selectItems value="#{registerController.countries}" var="country" itemLabel="#{country.name}"/>
+                                                <p:ajax update="@form"/>
+                                            </p:selectOneMenu> 
+
+                                            <p:outputLabel value="#{msg.personType}" for="personType"/>
+                                            <p:selectOneMenu id="personType" value="#{registerController.selectedPersonType}" converter="#{personTypeConverter}" required="true">
+                                                <f:selectItem itemLabel="#{msg.SelectOne}" noSelectionOption="true"/>
+                                                <f:selectItems value="#{registerController.personTypes}" var="personType" itemLabel="#{personType.description}"/>
+                                                <p:ajax update="@form"/>
+                                            </p:selectOneMenu> 
+                                        </h:panelGrid>
+                                    </p:panel>
+                                </p:tab>
+
+                                <p:tab id="naturalPerson" title="#{msg.personalDetail}" >
+                                    <p:panel id="naturalPersonPanel" header="#{msg.personalDetail}" rendered="#{ registerController.selectedPersonType != null and registerController.selectedPersonType.indNaturalPerson}" >
+                                        <h:panelGrid columns="3" columnClasses="label, value, messages">
+
+                                            <p:outputLabel value="#{msg.documentType}" for="documentType" />
+                                            <p:selectOneMenu id="documentType" value="#{naturalPersonController.selectedDocumentsPersonType}" converter="#{documentPersonTypeConverter}" required="true">
+                                                <f:selectItem itemLabel="#{msg.SelectOne}" noSelectionOption="true"/>
+                                                <f:selectItems value="#{registerController.documentPersonTypes}" var="obj" itemLabel="#{obj.description}"/>
+                                            </p:selectOneMenu> 
+                                            <p:message for="documentType"/>
+
+                                            <p:outputLabel value="#{msg.identificationNumber}" for="identificationNumber"  />
+                                            <p:inputNumber id="identificationNumber" value="#{naturalPersonController.person.identificationNumber}" required="true" thousandSeparator="" decimalPlaces="0" />
+                                            <p:message for="identificationNumber"/>
+
+                                            <p:outputLabel value="#{msg.dueDateIdentificationDocumente}" for="dueDateDocumentIdentification"  />
+                                            <p:calendar id="dueDateDocumentIdentification" value="#{naturalPersonController.person.dueDateDocumentIdentification}" navigator="true" yearRange="c-10:c+50" required="true"/>
+                                            <p:message for="dueDateDocumentIdentification"/>
+
+                                            <p:outputLabel value="#{msg.firstName}" for="firstname" />
+                                            <p:inputText id="firstname" value="#{naturalPersonController.person.firstName}" required="true" label="${msg.firstName}"/>
+                                            <p:message for="firstname"/>
+
+                                            <p:outputLabel value="#{msg.lastName}" for="lastname" />
+                                            <p:inputText id="lastname" value="#{naturalPersonController.person.lastName}" required="true" label="${msg.lastName}"/>
+                                            <p:message for="lastname"/>
+
+                                            <p:outputLabel value="#{msg.gender}" for="gender" />
+                                            <p:selectOneRadio id="gender" value="#{naturalPersonController.person.gender}" required="true">                                        
+                                                <f:selectItem itemLabel="#{msg.male}" itemValue="M" />
+                                                <f:selectItem itemLabel="#{msg.female}" itemValue="F" />
+                                            </p:selectOneRadio>
+                                            <p:message for="gender"/>
+
+                                            <p:outputLabel value="#{msg.civilStatus}" for="civilStatus" />
+                                            <p:selectOneRadio id="civilStatus" value="#{naturalPersonController.selectedCivilStatus}" converter="#{civilStatusConverter}" required="true">
+                                                <f:selectItems value="#{registerController.listCivilStatus}" var="civilStatus" itemLabel="#{civilStatus.description}"/>
+                                            </p:selectOneRadio>
+                                            <p:message for="civilStatus"/>
+
+                                            <p:outputLabel value="#{msg.birthdate}" for="birthdate" />
+                                            <p:calendar id="birthdate" value="#{naturalPersonController.person.dateBirth}" navigator="true" yearRange="c-100:c" required="true" maxdate="#{registerController.maxBirthdate}"/>
+                                            <p:message for="birthdate"/>
+
+                                            <p:outputLabel value="#{msg.placeBirth}" for="placeBirth" />
+                                            <p:inputText id="placeBirth" value="#{naturalPersonController.person.placeBirth}" required="true" label="${msg.placeBirth}"/>
+                                            <p:message for="placeBirth"/>
+
+
+                                            <p:outputLabel value="#{msg.profession}" for="profession" />
+                                            <p:selectOneMenu id="profession" value="#{naturalPersonController.selectedProfession}" converter="#{professionConverter}" required="true">
+                                                <f:selectItem itemLabel="#{msg.SelectOne}" noSelectionOption="true"/>
+                                                <f:selectItems value="#{registerController.professions}" var="profession" itemLabel="#{profession.name}"/>
+                                            </p:selectOneMenu>
+                                            <p:message for="profession"/>
+
+                                        </h:panelGrid>
+                                    </p:panel>
+                                </p:tab>
+
+                                <p:tab id="legalPerson" title="#{msg.legalPerson}">
+                                    <p:panel id="legalPersonPanel" header="#{msg.legalPerson}" rendered="#{ registerController.selectedPersonType != null and !registerController.selectedPersonType.indNaturalPerson}" >
+                                        <h:panelGrid columns="3" columnClasses="label, value, messages">
+
+                                            <p:outputLabel value="#{msg.documentType}" for="legalDocumentType" />
+                                            <p:selectOneMenu id="legalDocumentType" value="#{legalPersonController.selectedDocumentsPersonType}" converter="#{documentPersonTypeConverter}" required="true">
+                                                <f:selectItem itemLabel="#{msg.SelectOne}" noSelectionOption="true"/>
+                                                <f:selectItems value="#{registerController.documentPersonTypes}" var="obj" itemLabel="#{obj.description}"/>
+                                            </p:selectOneMenu> 
+                                            <p:message for="legalDocumentType"/>
+
+                                            <p:outputLabel value="#{msg.identificationNumber}" for="legalIdentificationNumber"  />
+                                            <p:inputNumber id="legalIdentificationNumber" value="#{legalPersonController.person.identificationNumber}" required="true" thousandSeparator="" decimalPlaces="0" />
+                                            <p:message for="legalIdentificationNumber"/>
+
+                                            <p:outputLabel value="#{msg.businessName}" for="businessName"  />
+                                            <p:inputText id="businessName" value="#{legalPersonController.person.businessName}" required="true"/>
+                                            <p:message for="businessName"/>
+
+                                            <p:outputLabel value="#{msg.businessCategory}" for="businessCategory" />
+                                            <p:selectOneMenu id="businessCategory" value="#{legalPersonController.selectedBusinessCategory}" converter="#{businessCategoryConverter}" required="true">
+                                                <f:selectItem itemLabel="#{msg.SelectOne}" noSelectionOption="true"/>
+                                                <f:selectItems value="#{registerController.businessCategories}" var="category" itemLabel="#{category.description}"/>
+                                            </p:selectOneMenu>
+                                            <p:message for="businessCategory"/>
+
+                                            <p:outputLabel value="#{msg.businessAddress}" for="businessAddress"  />
+                                            <p:inputText id="businessAddress" value="#{legalPersonController.businessAddress }" required="true"/>
+                                            <p:message for="businessAddress"/>
+
+                                            <p:outputLabel value="#{msg.registationDate}" for="registationDate" />
+                                            <p:calendar id="registationDate" value="#{legalPersonController.person.dateInscriptionRegister}" navigator="true" yearRange="c-100:c" required="true" maxdate="#{registerController.maxRegistationDate}"/>
+                                            <p:message for="registationDate"/>
+
+                                            <p:outputLabel value="#{msg.registerNumber}" for="registerNumber"  />
+                                            <p:inputNumber id="registerNumber" value="#{legalPersonController.person.registerNumber}" required="true" thousandSeparator="" decimalPlaces="0"/>
+                                            <p:message for="registerNumber"/>
+
+                                            <p:outputLabel value="#{msg.payedCapital}" for="payedCapital"  />
+                                            <p:inputNumber id="payedCapital" value="#{legalPersonController.person.payedCapital}" required="true" thousandSeparator="" decimalPlaces="2" >
+                                                <f:validateDoubleRange minimum="1"/>
+                                            </p:inputNumber>
+                                            <p:message for="payedCapital"/>
+
+                                        </h:panelGrid>
+                                    </p:panel>
+                                </p:tab>
+
+                                <p:tab id="legalPerson2" title="#{msg.legalPersonRepresentative}">
+                                    <p:panel id="legalRepresentativePanel" header="#{msg.legalPersonRepresentative}" rendered="#{ registerController.selectedPersonType != null and !registerController.selectedPersonType.indNaturalPerson}" >
+                                        <h:panelGrid columns="3" columnClasses="label, value, messages">
+
+                                            <p:outputLabel value="#{msg.documentType}" for="representativeDocumentType" />
+                                            <p:selectOneMenu id="representativeDocumentType" value="#{legalPersonController.selectedRepresentativeDocumentsPersonType}" converter="#{naturalPersonDocumentPersonTypeConverter}" required="true">
+                                                <f:selectItem itemLabel="#{msg.SelectOne}" noSelectionOption="true"/>
+                                                <f:selectItems value="#{registerController.naturalPersonDocumentsPersonTypes}" var="obj" itemLabel="#{obj.description}"/>
+                                            </p:selectOneMenu> 
+                                            <p:message for="representativeDocumentType"/>
+
+                                            <p:outputLabel value="#{msg.identificationNumber}" for="representativeIdentificationNumber"  />
+                                            <p:inputNumber id="representativeIdentificationNumber" value="#{legalPersonController.representative.identificationNumber}" required="true" thousandSeparator="" decimalPlaces="0" />
+                                            <p:message for="representativeIdentificationNumber"/>
+
+
+                                            <p:outputLabel value="#{msg.firstName}" for="representativeFirstname" />
+                                            <p:inputText id="representativeFirstname" value="#{legalPersonController.representative.firstNames}" required="true" label="${msg.firstName}"/>
+                                            <p:message for="representativeFirstname"/>
+
+                                            <p:outputLabel value="#{msg.lastName}" for="representativeLastname" />
+                                            <p:inputText id="representativeLastname" value="#{legalPersonController.representative.lastNames}" required="true" label="${msg.lastName}"/>
+                                            <p:message for="representativeLastname"/>
+
+                                            <p:outputLabel value="#{msg.gender}" for="representativeGender" />
+                                            <p:selectOneRadio id="representativeGender" value="#{legalPersonController.representative.gender}" required="true">                                        
+                                                <f:selectItem itemLabel="#{msg.male}" itemValue="M" />
+                                                <f:selectItem itemLabel="#{msg.female}" itemValue="F" />
+                                            </p:selectOneRadio>
+                                            <p:message for="representativeGender"/>
+
+                                            <p:outputLabel value="#{msg.civilStatus}" for="representativeCivilStatus" />
+                                            <p:selectOneRadio id="representativeCivilStatus" value="#{legalPersonController.selectedRepresentativeCivilStatus}" converter="#{civilStatusConverter}" required="true">
+                                                <f:selectItems value="#{registerController.listCivilStatus}" var="civilStatus" itemLabel="#{civilStatus.description}"/>
+                                            </p:selectOneRadio>
+                                            <p:message for="representativeCivilStatus"/>
+
+                                            <p:outputLabel value="#{msg.birthdate}" for="representativeBirthdate" />
+                                            <p:calendar id="representativeBirthdate" value="#{legalPersonController.representative.dateBirth}" navigator="true" yearRange="c-100:c" required="true" maxdate="#{registerController.maxBirthdate}"/>
+                                            <p:message for="representativeBirthdate"/>
+
+                                            <p:outputLabel value="#{msg.placeBirth}" for="representativePlaceBirth" />
+                                            <p:inputText id="representativePlaceBirth" value="#{legalPersonController.representative.placeBirth}" required="true" label="${msg.placeBirth}"/>
+                                            <p:message for="representativePlaceBirth"/>
+
+                                        </h:panelGrid>
+                                    </p:panel>
+                                </p:tab>
+
+                                <p:tab id="address" title="#{msg.businessAddress}" >
+                                    <p:panel id="businessAddressPanel" header="#{msg.businessAddress}">
+                                        <p:panelGrid columns="3" columnClasses="label, value, messages" style="width: 100%">
+                                            <p:outputLabel value="#{msg.state}" for="state" />
+                                            <p:selectOneMenu id="state" value="#{registerController.selectedState}" converter="#{stateConverter}" required="true" >
+                                                <f:selectItem itemLabel="#{msg.SelectOne}" noSelectionOption="true"/>
+                                                <f:selectItems value="#{registerController.states}" var="obj" itemLabel="#{obj.name}"/>
+                                                <p:ajax event="change" update="city"/>
+                                            </p:selectOneMenu> 
+                                            <p:message for="state"/>
+
+                                            <p:outputLabel value="#{msg.city}" for="city" />
+                                            <p:selectOneMenu id="city" value="#{registerController.selectedCity}" converter="#{cityConverter}" required="true" disabled="#{empty registerController.cities}">
+                                                <f:selectItem itemLabel="#{msg.SelectOne}" noSelectionOption="true"/>
+                                                <f:selectItems value="#{registerController.cities}" var="obj" itemLabel="#{obj.name}"/>
+                                                <p:ajax event="change"/>
+                                            </p:selectOneMenu> 
+                                            <p:message for="city"/>
+
+                                            <p:outputLabel value="#{msg.urbanization}" for="urbanization" />
+                                            <p:inputText id="urbanization" value="#{registerController.address.urbanization}" required="true" />
+                                            <p:message for="urbanization"/>
+
+                                            <p:outputLabel value="#{msg.nameStreet}" for="nameStreet" />
+                                            <p:inputText id="nameStreet" value="#{registerController.address.nameStreet}" required="true" />
+                                            <p:message for="nameStreet"/>
+
+                                            <p:outputLabel value="#{msg.nameEdification}" for="nameEdification" />
+                                            <p:inputText id="nameEdification" value="#{registerController.address.nameEdification}" required="true" />
+                                            <p:message for="nameEdification"/>
+
+                                            <p:outputLabel value="#{msg.tower}" for="tower" />
+                                            <p:inputText id="tower" value="#{registerController.address.tower}" required="true" />
+                                            <p:message for="tower"/>
+
+                                            <p:outputLabel value="#{msg.floor}" for="floor" />
+                                            <p:inputText id="floor" value="#{registerController.address.floor}" required="true" />
+                                            <p:message for="floor"/>
+
+                                            <p:outputLabel value="#{msg.zipCode}" for="zipCode" />
+                                            <p:inputText id="zipCode" value="#{registerController.address.zipCode}" required="true" />
+                                            <p:message for="zipCode"/>
+                                        </p:panelGrid>
+                                    </p:panel>
+                                </p:tab>
+                                <p:tab id="contact" title="#{msg.contact}" >
+                                    <p:panel header="#{msg.contact}"   >
+                                        <p:panelGrid columns="3" columnClasses="label, value, messages" style="width: 100%">
+
+                                            <p:outputLabel value="#{msg.countryCode}" for="countryCode" />
+                                            <p:inputNumber id="countryCode"  thousandSeparator=""  decimalSeparator="" decimalPlaces="0" value="#{registerController.businessPerson.phonePerson.countryCode}" required="true" maxlength="4" />
+                                            <p:message for="countryCode"/>
+
+                                            <p:outputLabel value="#{msg.areaCode}" for="areaCode" />
+                                            <p:inputNumber id="areaCode" thousandSeparator=""  decimalSeparator="" decimalPlaces="0" value="#{registerController.businessPerson.phonePerson.areaCode}" required="true" maxlength="10" />
+                                            <p:message for="areaCode"/>
+
+                                            <p:outputLabel value="#{msg.phoneNumber}" for="phoneNumber" />
+                                            <p:inputNumber id="phoneNumber" thousandSeparator=""  decimalSeparator="" decimalPlaces="0" value="#{registerController.businessPerson.phonePerson.numberPhone}" required="true" maxlength="10" />
+                                            <p:message for="phoneNumber"/>
+
+                                            <p:outputLabel value="#{msg.website}" for="website" />
+                                            <p:inputText id="website" value="#{registerController.businessPerson.webSite}" required="false" />
+                                            <p:message for="website"/>
+
+                                            <p:outputLabel value="#{msg.email}" for="email" />
+                                            <p:inputText id="email" value="#{registerController.businessPerson.email}" required="true" />
+                                            <p:message for="email"/>
+                                        </p:panelGrid>
+                                    </p:panel>
+
+                                </p:tab>
+
+                                <p:tab id="summary" title="#{msg.summary}" >
+                                    <p:panel header="#{msg.summary}">
+                                        <p:panel header="#{msg.personalDetail}" rendered="#{registerController.selectedPersonType != null and registerController.selectedPersonType.indNaturalPerson}">
+                                            <p:panelGrid columns="4" columnClasses="label, value, label, value">
+                                                <h:outputText value="#{msg.documentType}"/>
+                                                <h:outputText value="#{naturalPersonController.selectedDocumentsPersonType.description}"/>
+
+                                                <h:outputText value="#{msg.identificationNumber}"/>
+                                                <h:outputText value="#{naturalPersonController.person.identificationNumber}"/>
+
+                                                <h:outputText value="#{msg.firstName}"/>
+                                                <h:outputText value="#{naturalPersonController.person.firstName}"/>
+
+                                                <h:outputText value="#{msg.lastName}"/>
+                                                <h:outputText value="#{naturalPersonController.person.lastName}"/>
+
+                                                <h:outputText value="#{msg.gender}"/>
+                                                <h:outputText value="#{naturalPersonController.person.gender}"/>
+
+                                                <h:outputText value="#{msg.civilStatus}"/>
+                                                <h:outputText value="#{naturalPersonController.selectedCivilStatus.description}"/>
+
+                                                <h:outputText value="#{msg.birthdate}"/>
+                                                <h:outputText value="#{naturalPersonController.person.dateBirth}"/>
+
+                                                <h:outputText value="#{msg.placeBirth}"/>
+                                                <h:outputText value="#{naturalPersonController.person.placeBirth}"/>
+
+                                                <h:outputText value="#{msg.profession}"/>
+                                                <h:outputText value="#{naturalPersonController.selectedProfession.name}"/>
+
+                                            </p:panelGrid>
+                                        </p:panel>
+                                        <p:panel header="#{msg.legalPerson}" rendered="#{registerController.selectedPersonType != null and !registerController.selectedPersonType.indNaturalPerson}">
+                                            <p:panelGrid columns="4" columnClasses="label, value, label, value">
+                                                <h:outputText value="#{msg.documentType}"/>
+                                                <h:outputText value="#{legalPersonController.selectedDocumentsPersonType.description}"/>
+
+                                                <h:outputText value="#{msg.identificationNumber}"/>
+                                                <h:outputText value="#{legalPersonController.person.identificationNumber}"/>
+
+                                                <h:outputText value="#{msg.businessName}"/>
+                                                <h:outputText value="#{legalPersonController.person.businessName}"/>
+
+                                                <h:outputText value="#{msg.businessCategory}"/>
+                                                <h:outputText value="#{legalPersonController.selectedBusinessCategory.description}"/>
+
+                                                <h:outputText value="#{msg.businessAddress}"/>
+                                                <h:outputText value="#{legalPersonController.businessAddress}"/>
+
+                                                <h:outputText value="#{msg.registationDate}"/>
+                                                <h:outputText value="#{legalPersonController.person.dateInscriptionRegister}"/>
+
+                                                <h:outputText value="#{msg.registerNumber}"/>
+                                                <h:outputText value="#{legalPersonController.person.registerNumber}"/>
+
+                                                <h:outputText value="#{msg.payedCapital}"/>
+                                                <h:outputText value="#{legalPersonController.person.payedCapital}"/>
+                                            </p:panelGrid>
+                                        </p:panel>
+                                        <p:panel header="#{msg.businessAddress}" >
+                                            <p:panelGrid columns="4" columnClasses="label, value, label, value" >
+                                                <h:outputText value="#{msg.country}"/>
+                                                <h:outputText value="#{registerController.selectedCountry.name}"/>
+
+                                                <h:outputText value="#{msg.state}"/>
+                                                <h:outputText value="#{registerController.selectedState.name}"/>
+
+                                                <h:outputText value="#{msg.city}"/>
+                                                <h:outputText value="#{registerController.selectedCity.name}"/>
+
+                                                <h:outputText value="#{msg.urbanization}"/>
+                                                <h:outputText value="#{registerController.address.urbanization}"/>
+
+                                                <h:outputText value="#{msg.nameStreet}"/>
+                                                <h:outputText value="#{registerController.address.nameStreet}"/>
+
+                                                <h:outputText value="#{msg.nameEdification}"/>
+                                                <h:outputText value="#{registerController.address.nameEdification}"/>
+
+                                                <h:outputText value="#{msg.tower}"/>
+                                                <h:outputText value="#{registerController.address.tower}"/>
+
+                                                <h:outputText value="#{msg.floor}"/>
+                                                <h:outputText value="#{registerController.address.floor}"/>
+
+                                                <h:outputText value="#{msg.zipCode}"/>
+                                                <h:outputText value="#{registerController.address.zipCode}"/>
+
+                                            </p:panelGrid>
+                                        </p:panel>
+                                        <p:panel header="#{msg.contact}">
+                                            <p:panelGrid columns="6" columnClasses="label, value, label, value, label, value">
+                                                <h:outputText value="#{msg.countryCode}"/>
+                                                <h:outputText value="#{registerController.businessPerson.phonePerson.countryCode}"/>
+
+                                                <h:outputText value="#{msg.areaCode}"/>
+                                                <h:outputText value="#{registerController.businessPerson.phonePerson.areaCode}"/>
+
+                                                <h:outputText value="#{msg.phoneNumber}"/>
+                                                <h:outputText value="#{registerController.businessPerson.phonePerson.numberPhone}"/>
+
+                                                <h:outputText value="#{msg.website}"/>
+                                                <h:outputText value="#{registerController.businessPerson.webSite}"/>
+
+                                                <h:outputText value="#{msg.email}"/>
+                                                <h:outputText value="#{registerController.businessPerson.email}"/>
+
+                                            </p:panelGrid>
+                                        </p:panel>
+
+                                        <p:panel header="#{msg.legalPersonRepresentative}" rendered="#{registerController.selectedPersonType != null and !registerController.selectedPersonType.indNaturalPerson}">
+                                            <p:panelGrid columns="4" columnClasses="label, value, label, value">
+                                                <h:outputText value="#{msg.documentType}"/>
+                                                <h:outputText value="#{legalPersonController.selectedRepresentativeDocumentsPersonType.description}"/>
+
+                                                <h:outputText value="#{msg.identificationNumber}"/>
+                                                <h:outputText value="#{legalPersonController.representative.identificationNumber}"/>
+
+                                                <h:outputText value="#{msg.firstName}"/>
+                                                <h:outputText value="#{legalPersonController.representative.firstNames}"/>
+
+                                                <h:outputText value="#{msg.lastName}"/>
+                                                <h:outputText value="#{legalPersonController.representative.lastNames}"/>
+
+                                                <h:outputText value="#{msg.gender}"/>
+                                                <h:outputText value="#{legalPersonController.representative.gender}"/>
+
+                                                <h:outputText value="#{msg.civilStatus}"/>
+                                                <h:outputText value="#{legalPersonController.selectedRepresentativeCivilStatus.description}"/>
+
+                                                <h:outputText value="#{msg.birthdate}"/>
+                                                <h:outputText value="#{legalPersonController.representative.dateBirth}"/>
+
+                                                <h:outputText value="#{msg.placeBirth}"/>
+                                                <h:outputText value="#{legalPersonController.representative.placeBirth}"/>
+                                            </p:panelGrid>
+                                        </p:panel>
+                                        <p:commandButton value="#{msg.submit}"  icon="ui-icon-save"  action="#{registerController.submit()}" />
+                                    </p:panel>
+                                </p:tab>
+                            </p:wizard>
+
+                        </div>
+                    </h:form>
+                </p:layoutUnit>
+                <p:layoutUnit position="south" style="border: none">
+                    <div style="color: #757575; text-align: center;">
+                        #{msg.copyright}
+                        <p:graphicImage name="images/icon-mc.png" library="ultima-layout" />
+                        <p:graphicImage name="images/icon-veri.png" library="ultima-layout" />
+                        <p:graphicImage name="images/icon-visa.png" library="ultima-layout" />
+                    </div>
+                </p:layoutUnit>
+                <h:outputStylesheet name="css/ripple.css" library="ultima-layout" />
+                <h:outputStylesheet name="css/layout-indigo.css" library="ultima-layout" />
+            </f:view>
+        </p:layout>
+    </h:body>
+</html>

@@ -1,0 +1,123 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="WEB-INF/template.xhtml">
+
+    <ui:define name="title">#{msg.main}</ui:define>
+
+    <ui:define name="head">
+        <script type="text/javascript">
+            //<![CDATA[
+            function skinChart() {
+                this.cfg.shadow = false;
+                this.cfg.title = '';
+                this.cfg.seriesColors = ['#FFC107', '#03A9F4'];
+                this.cfg.grid = {
+                    background: '#ffffff',
+                    borderColor: '#ffffff',
+                    gridLineColor: '#EEEEEE',
+                    shadow: false
+                };
+                this.cfg.axesDefaults = {
+                    rendererOptions: {
+                        textColor: '#212121'
+                    }
+                };
+                this.cfg.seriesDefaults = {
+                    shadow: false,
+                    lineWidth: 1,
+                    markerOptions: {
+                        shadow: false,
+                        size: 7,
+                        style: 'circle'
+                    }
+                }
+            }
+            //]]>  
+        </script>
+        <style type="text/css">
+            .main-content {
+                padding: 0;
+            }
+        </style>
+    </ui:define>
+
+    <ui:define name="content">
+        <h1>#{msg.title}</h1>
+        <div class="ui-g dashboard">
+            <div class="ui-g-12 ui-md-4">
+                <div class="card overview" style="height: 200px;width: 100%" >
+                    <div class="overview-content clearfix">
+                        <span class="overview-title">#{msg.sells}</span>
+                        <!--<span class="overview-badge">%0</span>
+                        <span class="overview-detail" style="width: 100%">#{utilBean.weekSales} / #{msg.week}</span>!-->
+                    </div>
+                    <div class="overview-footer">
+                        <p:chart id="salesChart" type="bar" model="#{utilBean.salesChart}" style="height: 150px;width: 100%" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="ui-g-12 ui-md-4">
+                <div class="card overview" style="height: 200px;width: 100%" >
+                    <div class="overview-content clearfix">
+                        <span class="overview-title">#{msg.cardRecharges}</span>
+                        <!--<span class="overview-detail">#{utilBean.weekCardRecharges} / #{msg.week}</span>!-->
+                    </div>
+                    <div class="overview-footer">
+                        <p:chart id="withdrawsChart" type="bar" model="#{utilBean.cardRechargesChart}" style="height: 150px;width: 100%" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="ui-g-12 ui-md-4">
+                <div class="card overview" style="height: 200px;width: 100%" >
+                    <div class="overview-content clearfix">
+                        <span class="overview-title">#{msg.walletRecharges}</span>
+                        <!--<span class="overview-detail">#{utilBean.weekWalletRecharges} / #{msg.week}</span>!-->
+                    </div>
+                    <div class="overview-footer">
+                        <p:chart id="rechargesChart" type="bar" model="#{utilBean.walletRechargesChart}" style="height: 150px;width: 100%" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="ui-g-12 ui-md-6 ui-lg-3">
+                <div class="ui-g card colorbox colorbox-1">
+                    <div class="ui-g-4">
+                        <i class="material-icons">&#xE8D1;</i>
+                    </div>
+                    <div class="ui-g-8">
+                        <span class="colorbox-name">#{msg.stores}</span>
+                        <span class="colorbox-count">#{utilBean.storeAmount}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="ui-g-12 ui-md-6 ui-lg-3">
+                <div class="ui-g card colorbox colorbox-1">
+                    <div class="ui-g-4">
+                        <i class="material-icons">&#xE547;</i>
+                    </div>
+                    <div class="ui-g-8">
+                        <span class="colorbox-name">#{msg.pointsOfSale}</span>
+                        <span class="colorbox-count">#{utilBean.posAmount}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="ui-g-12 ui-md-6 ui-lg-3">
+                <div class="ui-g card colorbox colorbox-1">
+                    <div class="ui-g-4">
+                        <i class="material-icons">&#xE853;</i>
+                    </div>
+                    <div class="ui-g-8">
+                        <span class="colorbox-name">#{msg.operators}</span>
+                        <span class="colorbox-count">#{utilBean.operatorAmount}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+
+</ui:composition>

@@ -33,21 +33,21 @@
 
                             <p:wizard flowListener="#{registerController.onFlowProcess}" showStepStatus="false" showNavBar="${registerController.selectedPersonType != null}" nextLabel="#{msg.next}" backLabel="#{msg.back}" style="overflow: auto; height: 100%;">
                                 <p:tab id="location" title="location" >
-                                    <p:panel header="#{msg.countryHeader}">
-                                        <h:panelGrid columns="2" columnClasses="label, value, messages">
-                                            <p:outputLabel value="#{msg.country}" for="country"/>
+                                    <p:panel header="Country">
+                                        <h:panelGrid columns="1" columnClasses="label, value">
+                                            <p:outputLabel value="Pais" for="country"/>
                                             <p:selectOneMenu id="country" value="#{registerController.selectedCountry}" converter="#{countryConverter}" required="true">
                                                 <f:selectItem itemLabel="#{msg.SelectOne}" noSelectionOption="true" itemDisabled="true"/>
                                                 <f:selectItems value="#{registerController.countries}" var="country" itemLabel="#{country.name}"/>
                                                 <p:ajax update="@form"/>
                                             </p:selectOneMenu> 
 
-                                            <p:outputLabel value="#{msg.personType}" for="personType"/>
-                                            <p:selectOneMenu id="personType" value="#{registerController.selectedPersonType}" converter="#{personTypeConverter}" required="true">
-                                                <f:selectItem itemLabel="#{msg.SelectOne}" noSelectionOption="true"/>
-                                                <f:selectItems value="#{registerController.personTypes}" var="personType" itemLabel="#{personType.description}"/>
-                                                <p:ajax update="@form"/>
-                                            </p:selectOneMenu> 
+                                            <p:outputLabel value="PhoneNumber" for="phoneNumber"/>
+                                            <p:panelGrid columns="3" >
+                                                <p:inputNumber id="countryCode"  thousandSeparator=""  decimalSeparator="" decimalPlaces="0" value="#{registerController.selectedCountry.code}" disabled="true" maxlength="4"/>
+                                                <p:inputNumber id="areaCode" thousandSeparator=""  decimalSeparator="" decimalPlaces="0" value="#{registerController.businessPerson.phonePerson.areaCode}" required="true" maxlength="4" />
+                                                <p:inputNumber id="phoneNumber" thousandSeparator=""  decimalSeparator="" decimalPlaces="0" value="#{registerController.businessPerson.phonePerson.numberPhone}" required="true" maxlength="10" />
+                                            </p:panelGrid>
                                         </h:panelGrid>
                                     </p:panel>
                                 </p:tab>
@@ -253,33 +253,6 @@
                                             <p:message for="zipCode"/>
                                         </p:panelGrid>
                                     </p:panel>
-                                </p:tab>
-                                <p:tab id="contact" title="#{msg.contact}" >
-                                    <p:panel header="#{msg.contact}"   >
-                                        <p:panelGrid columns="3" columnClasses="label, value, messages" style="width: 100%">
-
-                                            <p:outputLabel value="#{msg.countryCode}" for="countryCode" />
-                                            <p:inputNumber id="countryCode"  thousandSeparator=""  decimalSeparator="" decimalPlaces="0" value="#{registerController.businessPerson.phonePerson.countryCode}" required="true" maxlength="4" />
-                                            <p:message for="countryCode"/>
-
-                                            <p:outputLabel value="#{msg.areaCode}" for="areaCode" />
-                                            <p:inputNumber id="areaCode" thousandSeparator=""  decimalSeparator="" decimalPlaces="0" value="#{registerController.businessPerson.phonePerson.areaCode}" required="true" maxlength="10" />
-                                            <p:message for="areaCode"/>
-
-                                            <p:outputLabel value="#{msg.phoneNumber}" for="phoneNumber" />
-                                            <p:inputNumber id="phoneNumber" thousandSeparator=""  decimalSeparator="" decimalPlaces="0" value="#{registerController.businessPerson.phonePerson.numberPhone}" required="true" maxlength="10" />
-                                            <p:message for="phoneNumber"/>
-
-                                            <p:outputLabel value="#{msg.website}" for="website" />
-                                            <p:inputText id="website" value="#{registerController.businessPerson.webSite}" required="false" />
-                                            <p:message for="website"/>
-
-                                            <p:outputLabel value="#{msg.email}" for="email" />
-                                            <p:inputText id="email" value="#{registerController.businessPerson.email}" required="true" />
-                                            <p:message for="email"/>
-                                        </p:panelGrid>
-                                    </p:panel>
-
                                 </p:tab>
 
                                 <p:tab id="summary" title="#{msg.summary}" >

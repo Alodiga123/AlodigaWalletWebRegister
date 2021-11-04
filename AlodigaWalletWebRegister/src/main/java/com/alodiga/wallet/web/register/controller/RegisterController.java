@@ -94,7 +94,7 @@ public class RegisterController {
     @ManagedProperty(value = "#{naturalPersonController}")
     private NaturalPersonController naturalPersonController;
 
-    private static final String PORTAL_ORIGIN_CODE = "BUSPOR";
+    private static final String PORTAL_ORIGIN_CODE = "PORNEG";
 
     @PostConstruct
     public void init() {
@@ -114,30 +114,11 @@ public class RegisterController {
 
                 for (Country country : countryList) {
                     try {
-                        List<PersonType> types = proxy.getPersonTypesBycountryId(country.getId());
-                        for (PersonType personType : types) {
-                            System.out.println(personType.getOriginApplicationId().getCode());
-                            if (personType.getOriginApplicationId().getCode().equals(PORTAL_ORIGIN_CODE)) {
-                                System.out.println("Country " + country.getName() + " con perosn type");
-                                countries.add(country);
-                                break;
-                            }
-                        }
+                        countries.add(country);
                     } catch (Exception e) {
+                        e.printStackTrace();
                     }
                 }
-
-                try {
-                    businessCategories = proxy.getBusinessCategories(new EJBRequest());
-                } catch (EmptyListException | GeneralException | NullParameterException ex) {
-                    ex.printStackTrace();
-                    businessCategories = new ArrayList();
-                }
-
-                businessPerson = new Person();
-                businessPerson.setPhonePerson(new PhonePerson());
-
-                address = new Address();
             } catch (EmptyListException ex) {
                 countries = new ArrayList();
             } catch (GeneralException ex) {
@@ -224,6 +205,8 @@ public class RegisterController {
         this.collectionRequests = new ArrayList();
 
         if (selectedCountry != null) {
+            
+            selectedCountry.getCode();
 
             try {
                 states = proxy.getStatesByCountryId(selectedCountry.getId());

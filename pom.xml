@@ -38,19 +38,31 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>clientAlodigaWallet</groupId>
-            <artifactId>client</artifactId>
-            <version>1</version>
+            <groupId>com.mycompany</groupId>
+            <artifactId>AlodigaWalletCommonsMaven</artifactId>
+            <version>1.0</version>
         </dependency>
+        <dependency>
+            <groupId>com.alodiga</groupId>
+            <artifactId>MavenRegistroUnificadoWsClient</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <!--<dependency>
+            <groupId>alodiga.wallet</groupId>
+            <artifactId>alodiga.wallet.commons</artifactId>
+            <version>1.0</version>
+            <systemPath>${basedir}/lib/AlodigaWalletCommons.jar</systemPath>
+            <scope>system</scope>
+        </dependency>-->
     </dependencies>
     
-    <repositories>
+    <!--<repositories>
         <repository>
             <id>prime-repo</id>
             <name>PrimeFaces Maven Repository</name>
             <url>http://repository.primefaces.org</url>
         </repository>
-    </repositories>
+    </repositories>-->
 
     <build>
         <plugins>
@@ -91,6 +103,51 @@
                         </resource>
                     </webResources>
                 </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.cargo</groupId>
+                <artifactId>cargo-maven3-plugin</artifactId>
+                <version>1.9.7</version>
+                <configuration>
+                    <container>
+                        <containerId>glassfish5x</containerId>
+                        <type>remote</type>
+                    </container>
+                    <configuration>
+                        
+                        <type>runtime</type>
+                        <properties>
+                            <cargo.hostname>localhost</cargo.hostname>
+                            <cargo.glassfish.admin.port>4848</cargo.glassfish.admin.port>
+                            <cargo.remote.username>admin</cargo.remote.username>
+                            <cargo.remote.password>admin</cargo.remote.password>
+                        </properties>
+                        
+                    </configuration>
+                    <deployables>
+                        <deployable>
+                            <groupId>${project.groupId}</groupId>
+                            <artifactId>${project.artifactId}</artifactId>
+                            <type>war</type>
+                            <properties>
+                                <context>AlodigaWalletWebRegister</context>
+                            </properties>
+                        </deployable>
+                    </deployables>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.glassfish.main.deployment</groupId>
+                        <artifactId>deployment-client</artifactId>
+                        <version>5.1.0</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>javax.xml.bind</groupId>
+                        <artifactId>jaxb-api</artifactId>
+                        <version>2.4.0-b180830.0359</version>
+                    </dependency>
+                </dependencies>
             </plugin>
         </plugins>
     </build>

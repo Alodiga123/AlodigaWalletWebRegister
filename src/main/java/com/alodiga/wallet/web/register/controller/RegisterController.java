@@ -1,6 +1,7 @@
 package com.alodiga.wallet.web.register.controller;
 
 import com.alodiga.wallet.common.ejb.BusinessPortalEJB;
+import com.alodiga.wallet.common.ejb.UtilsEJB;
 import com.alodiga.wallet.common.enumeraciones.RequestTypeE;
 import com.alodiga.wallet.common.exception.EmptyListException;
 import com.alodiga.wallet.common.exception.GeneralException;

@@ -119,6 +119,6 @@
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>register.xhtml</welcome-file>
+        <welcome-file>securityQuestion.xhtml</welcome-file>
     </welcome-file-list>
 </web-app>

@@ -1,0 +1,53 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="title">#{msg.store}</ui:define>
+
+    <ui:define name="content">
+        <h:form id="StoreCreateForm">
+            <div class="ui-fluid">
+                <div class="ui-g">
+                    <div class="ui-g-12">
+                        <div class="card card-w-title">
+                            <h1>#{msg.store}</h1>
+                            <p:panelGrid id="grid" columns="4" columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4" layout="grid" styleClass="ui-panelgrid-blank form-group" style="border:0px none; background-color:transparent;">
+                                <f:facet name="header">
+                                    <p:messages id="messages"  autoUpdate="true" closable="true" />
+                                </f:facet>
+                                
+
+                                <p:outputLabel value="#{msg.storeCode}" for="storeCode" />
+                                <p:inputText id="storeCode" value="#{storeController.storeCode}" title="#{msg.storeCode}" required="true"/>
+
+                                <p:outputLabel value="#{msg.name}" for="name" />
+                                <p:inputText id="name" value="#{storeController.name}" title="#{msg.name}" required="true"/>
+
+                                <p:outputLabel value="#{msg.address}" for="address" />
+                                <p:inputTextarea id="address" rows="2" cols="50" value="#{storeController.address}" title="#{msg.address}"/>
+
+                                <p:outputLabel value="#{msg.openTime}" for="openTime" />
+                                <pe:timePicker id="openTime" value="#{storeController.openTime}" mode="popup"/>
+
+                                <p:outputLabel value="#{msg.closeTime}" for="closeTime" />
+                                <pe:timePicker id="closeTime" value="#{storeController.closeTime}" mode="popup"/>
+
+                            </p:panelGrid>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div align="center">
+                <p:commandButton  value="#{msg.save}" id="btnSubmit" icon="ui-icon-save" actionListener="#{storeController.save()}" />
+
+                <p:commandButton  value="#{msg.cancel}" id="btnCancel" icon="ui-icon-cancel" update=":StoreCreateForm" actionListener="#{storeController.reset()}" immediate="true" process="@this"/>
+                <p:commandButton  value="#{msg.goBack}" id="btnReturn"  icon="ui-icon-replay" update=":StoreCreateForm" actionListener="#{storeController.doRediret()}" immediate="true" process="@this"/>
+            </div>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

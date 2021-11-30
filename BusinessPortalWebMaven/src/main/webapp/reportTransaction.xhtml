@@ -1,0 +1,163 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="title">#{msg.reportTransactionTitle}</ui:define>
+
+    <ui:define name="content">
+        <h:form id="cardForm" >
+            <div class="ui-fluid">
+                <div class="ui-g">
+                    <div class="ui-g-12">
+                        <div class="card card-w-title">
+                            <div align="center">
+                                <h1>#{msg.reportTransactionTitle}</h1>
+                                <f:facet name="header">
+                                    <p:messages id="messages"  autoUpdate="true" closable="true" />
+                                </f:facet>
+                                <p:panelGrid id="cardInfoGrid" columns="6" >
+                                    <h:outputText value="#{msg.startDate}" />
+                                    <p:calendar id="startDate" value="#{transactionReportController.startDate}" pattern="MM/dd/yyyy HH:mm">
+                                        <p:ajax event="dateSelect" update="endDate" />
+                                    </p:calendar>
+
+                                    <h:outputText value="#{msg.endDate}" />
+                                    <p:calendar id="endDate" value="#{transactionReportController.endDate}" 
+                                                pattern="MM/dd/yyyy HH:mm" mindate="#{transactionReportController.startDate}" 
+                                                maxdate="#{transactionReportController.maxDate}" />
+
+                                    <h:outputText value="#{msg.reporTransactionOperationType}" />
+                                    <p:selectOneMenu id="store" value="#{transactionReportController.selectedOperationType}" converter="operationTypeConverter" >
+                                        <f:selectItem itemLabel="#{msg.all}" value="#{null}"/>
+                                        <f:selectItems value="#{transactionReportController.operationTypes}" var="operation" itemLabel="#{transactionReportController.getOperationTypeName(operation)}" />
+                                    </p:selectOneMenu>
+
+
+                                </p:panelGrid>
+                            </div>
+
+                            <div align="center">
+                                <p:panelGrid  columns="1" >
+                                    <p:commandButton  value="#{msg.reportTransactionGenerate}" update="@form" id="btnSubmit" icon="ui-icon-search" actionListener="#{transactionReportController.doReport()}" />
+                                </p:panelGrid>
+                            </div>
+                            <div align="center">
+                                <p:panel header="#{msg.reportSingleSearchTitle}">
+                                    <p:panelGrid columns="3" >
+                                        <h:outputText value="#{msg.resportSingleSearch}" />
+                                        <p:inputNumber id="singleSearchId" value="#{transactionReportController.reportSingleId}" />
+                                        <p:commandButton  value="#{msg.reportTransactionGenerate}" update="@form" id="btnSingleSubmit" icon="ui-icon-search" actionListener="#{transactionReportController.doSingleReport()}" />
+                                    </p:panelGrid>
+                                </p:panel>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <p:dataTable id="resultList" var="transaction" rendered="#{transactionReportController.resultList != null}" 
+                         value="#{transactionReportController.resultList}" emptyMessage="#{msg.reportTransactionEmptyResult}" 
+                         filteredValue="#{transactionReportController.filteredResult}" paginator="true" rows="10" style="margin-bottom:20px"
+                         paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink} {Exporters}" 
+                         rowsPerPageTemplate="5,10,15" >
+
+                <f:facet name="{Exporters}">
+                    <div style="float:right;padding-top: 5px;">
+                        <h:commandLink>
+                            <p:graphicImage name="/demo/images/excel.png" width="24"/>
+                            <p:dataExporter type="xls" target="resultList" fileName="#{msg.reportTransactionTitle}" />
+                        </h:commandLink>
+
+                        <h:commandLink>
+                            <p:graphicImage name="/demo/images/csv.png" width="24"/>
+                            <p:dataExporter type="csv" target="resultList" fileName="#{msg.reportTransactionTitle}" />
+                        </h:commandLink>
+
+                    </div>
+                </f:facet>
+                
+                <p:column filterBy="#{transaction.id}" headerText="#{msg.id}"  filterMatchMode="contains" style="width:15px">
+                    <h:outputText value="#{transaction.id}" />
+                </p:column>
+
+                <p:column filterBy="#{transaction.dateTransaction}" headerText="#{msg.date}"  filterMatchMode="contains" style="width:15px">
+                    <h:outputText value="#{transaction.dateTransaction}" />
+                </p:column>
+
+                <p:column filterBy="#{transaction.type}" headerText="#{msg.reporTransactionOperationType}"  filterMatchMode="contains" style="width:15px">
+                    <h:outputText value="#{transactionReportController.getOperationTypeName(transaction.type)}" />
+                </p:column>
+
+                <p:column filterBy="#{transaction.totalAmount}" headerText="#{msg.reportTransactionTotalAmount}"  filterMatchMode="contains" style="width:15px">
+                    <h:outputText value="#{transaction.totalAmount}" />
+                </p:column>
+
+                <p:column filterBy="#{transaction.businessFee}" headerText="#{msg.reportTransactionBusinessFee}"  filterMatchMode="contains" style="width:15px">
+                    <h:outputText value="#{transaction.businessFee}" />
+                </p:column>
+
+                <p:column filterBy="#{transaction.amountWithoutFee}" headerText="#{msg.reportTransactionAmountWithoutFee}"  filterMatchMode="contains" style="width:15px">
+                    <h:outputText value="#{transaction.amountWithoutFee}" />
+                </p:column>
+
+                <p:column filterBy="#{transaction.status}" headerText="#{msg.reporTransactionStatus}"  filterMatchMode="contains" style="width:15px">
+                    <h:outputText value="#{transactionReportController.getOperationStatus(transaction.status)}" />
+                </p:column>
+
+                <p:column filterBy="#{transaction.businessCommission}" headerText="#{msg.reportTransactionBusinessCommission}"  filterMatchMode="contains" style="width:15px">
+                    <h:outputText value="#{transaction.businessCommission}" />
+                </p:column>
+
+                <p:column style="width:10px;text-align: center" exportable="false">
+                    <p:commandButton update=":cardForm:transactionDetail" oncomplete="PF('transactionDialog').show()" icon="ui-icon-search" title="#{msg.view}">
+                        <f:setPropertyActionListener value="#{transaction}" target="#{transactionReportController.selectedTransaction}" />
+                    </p:commandButton>
+                </p:column>
+            </p:dataTable>
+            <p:dialog header="#{msg.transactionDetail}" widgetVar="transactionDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                <p:outputPanel id="transactionDetail" style="text-align:center;">
+                    <p:panelGrid  columns="2" rendered="#{not empty transactionReportController.selectedTransaction}" columnClasses="label,value">
+                        <h:outputText value="#{msg.date}:" />
+                        <h:outputText value="#{transactionReportController.selectedTransaction.dateTransaction}" />
+
+                        <h:outputText value="#{msg.id}:" />
+                        <h:outputText value="#{transactionReportController.selectedTransaction.id}" />
+
+                        <h:outputText value="#{msg.reporTransactionOperationType}:" />
+                        <h:outputText value="#{transactionReportController.getOperationTypeName(transactionReportController.selectedTransaction.type)}" />
+
+                        <h:outputText value="#{msg.reporTransactionStatus}:" />
+                        <h:outputText value="#{transactionReportController.getOperationStatus(transactionReportController.selectedTransaction.status)}" />
+
+                        <h:outputText value="#{msg.reportTransactionTotalAmount}:" />
+                        <h:outputText value="#{transactionReportController.selectedTransaction.totalAmount}" />
+
+                        <h:outputText value="#{msg.reportTransactionBusinessFee}:" />
+                        <h:outputText value="#{transactionReportController.selectedTransaction.businessFee}" />
+
+                        <h:outputText value="#{msg.reportTransactionAmountWithoutFee}:" />
+                        <h:outputText value="#{transactionReportController.selectedTransaction.amountWithoutFee}" />
+
+                        <h:outputText value="#{msg.reportTransactionTransactionId}:" />
+                        <h:outputText value="#{transactionReportController.selectedTransaction.transactionId}" />
+
+                        <h:outputText value="#{msg.operator}:" />
+                        <h:outputText value="#{transactionReportController.selectedTransaction.user.displayName}" />
+
+                        <h:outputText value="#{msg.reportTransactionBusinessCommission}:" />
+                        <h:outputText value="#{transactionReportController.selectedTransaction.businessFee}" />
+
+                        <h:outputText value="#{msg.reportTransactionCloseDate}:" rendered="#{not empty transactionReportController.selectedTransaction.close}"/>
+                        <h:outputText value="#{transactionReportController.selectedTransaction.close.dateClose}" rendered="#{not empty transactionReportController.selectedTransaction.close}"/>
+                    </p:panelGrid>
+                </p:outputPanel>
+            </p:dialog>
+        </h:form>
+    </ui:define>
+
+</ui:composition>
+

@@ -23,13 +23,14 @@ public class DocumentPersonTypeConverter implements Converter {
     private RegisterController registerController;
 
     @Override
-    public Object getAsObject(FacesContext facesContext, UIComponent component, String submittedValue) {
+    public Object getAsObject(FacesContext facesContext, UIComponent component, String submittedValue) {        
         if (submittedValue == null || submittedValue.equals("")) {
             return "";
         }
         try {
-            return registerController.getDocumentsPersonType(Long.parseLong(submittedValue));
+            return registerController.getDocumentsPersonType(Long.valueOf(submittedValue));
         } catch (NumberFormatException ex) {
+            ex.printStackTrace();
             Logger.getLogger(DocumentPersonTypeConverter.class.getName()).log(Level.SEVERE, null, ex);
         }
 
@@ -41,8 +42,8 @@ public class DocumentPersonTypeConverter implements Converter {
         if (value == null || value.equals("")) {
             return "";
         } else {
-            if (value instanceof DocumentsPersonType) {
-                return Long.toString(((DocumentsPersonType) value).getId());
+            if (value instanceof com.alodiga.wallet.ws.DocumentsPersonType) {                
+                return Long.toString(((com.alodiga.wallet.ws.DocumentsPersonType) value).getId());
             } else {
                 return value.toString();
             }

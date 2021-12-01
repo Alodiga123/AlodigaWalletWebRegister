@@ -47,8 +47,6 @@ public class CollectionRequestController {
 
     private AffiliationRequest affiliationRequest;
 
-    private static BusinessPortalEJB proxy;
-
     private boolean isSaved = false;
 
     @PostConstruct
@@ -60,19 +58,13 @@ public class CollectionRequestController {
             props.setProperty("java.naming.factory.state", "com.sun.corba.ee.impl.presentation.rmi.JNDIStateFactoryImpl");
             props.setProperty("org.omg.CORBA.ORBInitialHost", "alodiga.wallet.admin");
             props.setProperty("org.omg.CORBA.ORBInitialPort", "3700");
-            InitialContext intialContext = new InitialContext(props);
-            proxy = (BusinessPortalEJB) intialContext.lookup(EjbConstants.BUSINESS_PORTAL_EJB);
-            String affilitiaonId = FacesContext.getCurrentInstance().
-                    getExternalContext().getRequestParameterMap().get("i");
-            affiliationRequest = proxy.loadAffiliationRequestById(Long.parseLong(affilitiaonId));
-            collectionRequests = proxy.getCollectionRequestsByPersonTypeId(affiliationRequest.getBusinessPersonId().getPersonTypeId().getId().longValue());
+            InitialContext intialContext = new InitialContext(props);                        
             for (CollectionsRequest collection : collectionRequests) {
 
                 collectionsRequestMap.put(collection.getId(), collection);
                 collectionFiles.put(collection.getId(), null);
                 collectionImgMap.put(collection.getId(), null);
-            }
-        } catch (EmptyListException ex) {
+            }        
         } catch (Exception ex) {
             ex.printStackTrace();
             try {
@@ -179,26 +171,6 @@ public class CollectionRequestController {
 
     }
 
-    public String onFlowProcess(FlowEvent event) {
-        switch (event.getOldStep()) {
-            case "collectionRequest":
-                if (!isSaved) {
-                    for (Integer index : collectionImgMap.keySet()) {
-                        try {
-                            RequestHasCollectionRequest rhcr = new RequestHasCollectionRequest();
-                            rhcr.setCollectionsRequestId(collectionsRequestMap.get(index));
-                            rhcr.setCreateDate(new Date());
-                            rhcr.setImageFileUrl(collectionImgMap.get(index));
-                            rhcr.setAffiliationRequestId(affiliationRequest);
-                            proxy.saveRequestHasCollectionsRequest(rhcr);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                    isSaved = true;
-                }
-        }
-        return event.getNewStep();
-    }
+    
 
 }

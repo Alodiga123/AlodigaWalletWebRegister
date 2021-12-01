@@ -5,35 +5,35 @@
   font-family: 'Roboto';
   font-style: normal;
   font-weight: 300;
-  src: url("/BusinessPortalWeb/javax.faces.resource/fonts/roboto-v15-latin-300.eot.xhtml?ln=ultima-layout");
+  src: url("/AlodigaWalletWebRegister/javax.faces.resource/fonts/roboto-v15-latin-300.eot.xhtml?ln=ultima-layout");
   /* IE9 Compat Modes */
-  src: local("Roboto Light"), local("Roboto-Light"), url("/BusinessPortalWeb/javax.faces.resource/fonts/roboto-v15-latin-300.eot.xhtml?ln=ultima-layout#iefix") format("embedded-opentype"), url("/BusinessPortalWeb/javax.faces.resource/fonts/roboto-v15-latin-300.woff2.xhtml?ln=ultima-layout") format("woff2"), url("/BusinessPortalWeb/javax.faces.resource/fonts/roboto-v15-latin-300.woff.xhtml?ln=ultima-layout") format("woff"), url("/BusinessPortalWeb/javax.faces.resource/fonts/roboto-v15-latin-300.ttf.xhtml?ln=ultima-layout") format("truetype"), url("/BusinessPortalWeb/javax.faces.resource/fonts/roboto-v15-latin-300.svg.xhtml?ln=ultima-layout#Roboto") format("svg");
+  src: local("Roboto Light"), local("Roboto-Light"), url("/AlodigaWalletWebRegister/javax.faces.resource/fonts/roboto-v15-latin-300.eot.xhtml?ln=ultima-layout#iefix") format("embedded-opentype"), url("/AlodigaWalletWebRegister/javax.faces.resource/fonts/roboto-v15-latin-300.woff2.xhtml?ln=ultima-layout") format("woff2"), url("/AlodigaWalletWebRegister/javax.faces.resource/fonts/roboto-v15-latin-300.woff.xhtml?ln=ultima-layout") format("woff"), url("/AlodigaWalletWebRegister/javax.faces.resource/fonts/roboto-v15-latin-300.ttf.xhtml?ln=ultima-layout") format("truetype"), url("/AlodigaWalletWebRegister/javax.faces.resource/fonts/roboto-v15-latin-300.svg.xhtml?ln=ultima-layout#Roboto") format("svg");
   /* Legacy iOS */ }
 /* roboto-regular - latin */
 @font-face {
   font-family: 'Roboto';
   font-style: normal;
   font-weight: 400;
-  src: url("/BusinessPortalWeb/javax.faces.resource/fonts/roboto-v15-latin-regular.eot.xhtml?ln=ultima-layout");
+  src: url("/AlodigaWalletWebRegister/javax.faces.resource/fonts/roboto-v15-latin-regular.eot.xhtml?ln=ultima-layout");
   /* IE9 Compat Modes */
-  src: local("Roboto"), local("Roboto-Regular"), url("/BusinessPortalWeb/javax.faces.resource/fonts/roboto-v15-latin-regular.eot.xhtml?ln=ultima-layout#iefix") format("embedded-opentype"), url("/BusinessPortalWeb/javax.faces.resource/fonts/roboto-v15-latin-regular.woff2.xhtml?ln=ultima-layout") format("woff2"), url("/BusinessPortalWeb/javax.faces.resource/fonts/roboto-v15-latin-regular.woff.xhtml?ln=ultima-layout") format("woff"), url("/BusinessPortalWeb/javax.faces.resource/fonts/roboto-v15-latin-regular.ttf.xhtml?ln=ultima-layout") format("truetype"), url("/BusinessPortalWeb/javax.faces.resource/fonts/roboto-v15-latin-regular.svg.xhtml?ln=ultima-layout#Roboto") format("svg");
+  src: local("Roboto"), local("Roboto-Regular"), url("/AlodigaWalletWebRegister/javax.faces.resource/fonts/roboto-v15-latin-regular.eot.xhtml?ln=ultima-layout#iefix") format("embedded-opentype"), url("/AlodigaWalletWebRegister/javax.faces.resource/fonts/roboto-v15-latin-regular.woff2.xhtml?ln=ultima-layout") format("woff2"), url("/AlodigaWalletWebRegister/javax.faces.resource/fonts/roboto-v15-latin-regular.woff.xhtml?ln=ultima-layout") format("woff"), url("/AlodigaWalletWebRegister/javax.faces.resource/fonts/roboto-v15-latin-regular.ttf.xhtml?ln=ultima-layout") format("truetype"), url("/AlodigaWalletWebRegister/javax.faces.resource/fonts/roboto-v15-latin-regular.svg.xhtml?ln=ultima-layout#Roboto") format("svg");
   /* Legacy iOS */ }
 /* roboto-700 - latin */
 @font-face {
   font-family: 'Roboto';
   font-style: normal;
   font-weight: 700;
-  src: url("/BusinessPortalWeb/javax.faces.resource/fonts/roboto-v15-latin-700.eot.xhtml?ln=ultima-layout");
+  src: url("/AlodigaWalletWebRegister/javax.faces.resource/fonts/roboto-v15-latin-700.eot.xhtml?ln=ultima-layout");
   /* IE9 Compat Modes */
-  src: local("Roboto Bold"), local("Roboto-Bold"), url("/BusinessPortalWeb/javax.faces.resource/fonts/roboto-v15-latin-700.eot.xhtml?ln=ultima-layout#iefix") format("embedded-opentype"), url("/BusinessPortalWeb/javax.faces.resource/fonts/roboto-v15-latin-700.woff2.xhtml?ln=ultima-layout") format("woff2"), url("/BusinessPortalWeb/javax.faces.resource/fonts/roboto-v15-latin-700.woff.xhtml?ln=ultima-layout") format("woff"), url("/BusinessPortalWeb/javax.faces.resource/fonts/roboto-v15-latin-700.ttf.xhtml?ln=ultima-layout") format("truetype"), url("/BusinessPortalWeb/javax.faces.resource/fonts/roboto-v15-latin-700.svg.xhtml?ln=ultima-layout#Roboto") format("svg");
+  src: local("Roboto Bold"), local("Roboto-Bold"), url("/AlodigaWalletWebRegister/javax.faces.resource/fonts/roboto-v15-latin-700.eot.xhtml?ln=ultima-layout#iefix") format("embedded-opentype"), url("/AlodigaWalletWebRegister/javax.faces.resource/fonts/roboto-v15-latin-700.woff2.xhtml?ln=ultima-layout") format("woff2"), url("/AlodigaWalletWebRegister/javax.faces.resource/fonts/roboto-v15-latin-700.woff.xhtml?ln=ultima-layout") format("woff"), url("/AlodigaWalletWebRegister/javax.faces.resource/fonts/roboto-v15-latin-700.ttf.xhtml?ln=ultima-layout") format("truetype"), url("/AlodigaWalletWebRegister/javax.faces.resource/fonts/roboto-v15-latin-700.svg.xhtml?ln=ultima-layout#Roboto") format("svg");
   /* Legacy iOS */ }
 @font-face {
   font-family: 'Material Icons';
   font-style: normal;
   font-weight: 400;
-  src: url("/BusinessPortalWeb/javax.faces.resource/fonts/MaterialIcons-Regular.eot.xhtml?ln=ultima-layout");
+  src: url("/AlodigaWalletWebRegister/javax.faces.resource/fonts/MaterialIcons-Regular.eot.xhtml?ln=ultima-layout");
   /* For IE6-8 */
-  src: local("Material Icons"), local("MaterialIcons-Regular"), url("/BusinessPortalWeb/javax.faces.resource/fonts/MaterialIcons-Regular.woff2.xhtml?ln=ultima-layout") format("woff2"), url("/BusinessPortalWeb/javax.faces.resource/fonts/MaterialIcons-Regular.woff.xhtml?ln=ultima-layout") format("woff"), url("/BusinessPortalWeb/javax.faces.resource/fonts/MaterialIcons-Regular.ttf.xhtml?ln=ultima-layout") format("truetype"); }
+  src: local("Material Icons"), local("MaterialIcons-Regular"), url("/AlodigaWalletWebRegister/javax.faces.resource/fonts/MaterialIcons-Regular.woff2.xhtml?ln=ultima-layout") format("woff2"), url("/AlodigaWalletWebRegister/javax.faces.resource/fonts/MaterialIcons-Regular.woff.xhtml?ln=ultima-layout") format("woff"), url("/AlodigaWalletWebRegister/javax.faces.resource/fonts/MaterialIcons-Regular.ttf.xhtml?ln=ultima-layout") format("truetype"); }
 /* Utils */
 .clearfix:after {
   content: " ";
@@ -325,7 +325,7 @@
   -moz-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12); }
 
 .login-body {
-  background: url("/BusinessPortalWeb/javax.faces.resource/images/login/login.png.xhtml?ln=ultima-layout") top left no-repeat #f7f7f7;
+  background: url("/AlodigaWalletWebRegister/javax.faces.resource/images/login/login.png.xhtml?ln=ultima-layout") top left no-repeat #f7f7f7;
   background-size: 100% auto; }
 
 .login-panel {
@@ -349,7 +349,7 @@
 
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
   .login-body {
-    background: url("/BusinessPortalWeb/javax.faces.resource/images/login/login2x.png.xhtml?ln=ultima-layout") top left no-repeat #f7f7f7;
+    background: url("/AlodigaWalletWebRegister/javax.faces.resource/images/login/login2x.png.xhtml?ln=ultima-layout") top left no-repeat #f7f7f7;
     background-size: 100% auto; } }
 @media (max-width: 1024px) {
   .login-panel {
@@ -419,7 +419,7 @@
 .landing-wrapper #header {
   width: 100%;
   min-height: 400px;
-  background: url("/BusinessPortalWeb/javax.faces.resource/images/landing/landing-header.png.xhtml?ln=ultima-layout") top left no-repeat #f7f7f7;
+  background: url("/AlodigaWalletWebRegister/javax.faces.resource/images/landing/landing-header.png.xhtml?ln=ultima-layout") top left no-repeat #f7f7f7;
   background-size: 100% auto; }
   .landing-wrapper #header .header-top {
     width: 960px;
@@ -430,7 +430,7 @@
       vertical-align: middle;
       width: 200px;
       height: 30px;
-      background: url("/BusinessPortalWeb/javax.faces.resource/images/logo.png.xhtml?ln=ultima-layout") top left no-repeat; }
+      background: url("/AlodigaWalletWebRegister/javax.faces.resource/images/logo.png.xhtml?ln=ultima-layout") top left no-repeat; }
     .landing-wrapper #header .header-top #menu {
       float: right;
       list-style: none;
@@ -496,7 +496,7 @@
       .landing-wrapper #features .feature-icon:hover i {
         color: #ffffff; }
 .landing-wrapper #promotion {
-  background: url("/BusinessPortalWeb/javax.faces.resource/images/landing/promotion.png.xhtml?ln=ultima-layout") top left no-repeat;
+  background: url("/AlodigaWalletWebRegister/javax.faces.resource/images/landing/promotion.png.xhtml?ln=ultima-layout") top left no-repeat;
   background-size: 100% auto; }
   .landing-wrapper #promotion .ui-lg-8 {
     padding: 150px 0 0 150px; }
@@ -695,7 +695,7 @@
       padding: 0; } }
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
   .landing-wrapper .header .header-top .logo {
-    background: url("/BusinessPortalWeb/javax.faces.resource/images/logo2x.png.xhtml?ln=ultima-layout") top left no-repeat;
+    background: url("/AlodigaWalletWebRegister/javax.faces.resource/images/logo2x.png.xhtml?ln=ultima-layout") top left no-repeat;
     background-size: 200px 30px; } }
 html {
   height: 100%; }
@@ -737,7 +737,7 @@ body {
     vertical-align: middle;
     width: 200px;
     height: 50px;
-    background: url("/BusinessPortalWeb/javax.faces.resource/images/logo.png.xhtml?ln=ultima-layout") top left no-repeat; }
+    background: url("/AlodigaWalletWebRegister/javax.faces.resource/images/logo.png.xhtml?ln=ultima-layout") top left no-repeat; }
   .layout-wrapper .topbar .topbar-left {
     box-sizing: border-box;
     padding: 20px;
@@ -884,7 +884,7 @@ body {
     width: 250px;
     height: 145px;
     text-align: center;
-    background: url("/BusinessPortalWeb/javax.faces.resource/images/profile-bg.png.xhtml?ln=ultima-layout") top left no-repeat;
+    background: url("/AlodigaWalletWebRegister/javax.faces.resource/images/profile-bg.png.xhtml?ln=ultima-layout") top left no-repeat;
     background-size: 250px 145px;
     -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16);
     -moz-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16);
@@ -893,7 +893,7 @@ body {
       width: 60px;
       height: 60px;
       margin: 0 auto 5px auto;
-      background: url("/BusinessPortalWeb/javax.faces.resource/images/avatar2x.png.xhtml?ln=ultima-layout") top left no-repeat;
+      background: url("/AlodigaWalletWebRegister/javax.faces.resource/images/avatar2x.png.xhtml?ln=ultima-layout") top left no-repeat;
       background-size: 60px 60px; }
     .layout-wrapper .layout-menu .profile .profile-name {
       display: inline-block;
@@ -922,7 +922,7 @@ body {
   .layout-wrapper .layout-menu.layout-menu-dark {
     background-color: #424242; }
     .layout-wrapper .layout-menu.layout-menu-dark .profile {
-      background-image: url("/BusinessPortalWeb/javax.faces.resource/images/profile-bg-dark.png.xhtml?ln=ultima-layout"); }
+      background-image: url("/AlodigaWalletWebRegister/javax.faces.resource/images/profile-bg-dark.png.xhtml?ln=ultima-layout"); }
       .layout-wrapper .layout-menu.layout-menu-dark .profile .profile-name {
         color: #ffffff; }
       .layout-wrapper .layout-menu.layout-menu-dark .profile i {
@@ -1101,7 +1101,7 @@ body {
       .layout-wrapper .topbar-items > li.profile-item .profile-image {
         width: 36px;
         height: 36px;
-        background: url("/BusinessPortalWeb/javax.faces.resource/images/avatar2x.png.xhtml?ln=ultima-layout") top left no-repeat;
+        background: url("/AlodigaWalletWebRegister/javax.faces.resource/images/avatar2x.png.xhtml?ln=ultima-layout") top left no-repeat;
         background-size: 36px 36px; }
       .layout-wrapper .topbar-items > li > ul {
         position: absolute;
@@ -1348,7 +1348,7 @@ body {
       vertical-align: middle;
       width: 24px;
       height: 24px;
-      background: url("/BusinessPortalWeb/javax.faces.resource/images/avatar2x.png.xhtml?ln=ultima-layout") top left no-repeat;
+      background: url("/AlodigaWalletWebRegister/javax.faces.resource/images/avatar2x.png.xhtml?ln=ultima-layout") top left no-repeat;
       background-size: 24px 24px;
       margin-right: 14px; }
     .layout-wrapper .topbar .topbar-right .topbar-items > li.profile-item span {
@@ -1358,7 +1358,7 @@ body {
       display: block; } }
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
   .layout-wrapper .topbar .logo {
-    background: url("/BusinessPortalWeb/javax.faces.resource/images/logo2x.png.xhtml?ln=ultima-layout") top left no-repeat;
+    background: url("/AlodigaWalletWebRegister/javax.faces.resource/images/logo2x.png.xhtml?ln=ultima-layout") top left no-repeat;
     background-size: 200px 30px; } }
 body.layout-compact {
   font-size: 14px;

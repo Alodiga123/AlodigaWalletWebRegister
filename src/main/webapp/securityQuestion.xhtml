@@ -28,11 +28,11 @@
 
             <f:view contentType="text/html" id="fview">
                 <p:layoutUnit position="center" style="border: none">
-                    <h:form id="securityQuestion1Form" styleClass="login-body" style="overflow:auto;height:100%">
-                        <div class="card login-panel ui-fluid" style="width: 800px; max-height: 80vh;overflow: auto">
+                    <h:form id="securityQuestion1Form" styleClass="login-body" style="height:100%">
+                        <div class="card login-panel ui-fluid" style="width: 800px; max-height: 80vh;">
                             <p:tab id="securityQuestionUser" title="securityQuestion" >
                                     <p:panel header="#{msg.securityQuestionHeader}">
-                                        <h:panelGrid columns="2" columnClasses="label, value, messages">
+                                        <h:panelGrid columns="3" columnClasses="label, value, messages">
                                             <p:outputLabel value="#{msg.preguntaIdiomaOne}" for="preguntaIdiomaOne" />
                                             <p:selectOneMenu id="preguntaIdiomaOne" value="#{securityQuestionController.selectedPreguntaIdiomaOne}" converter="#{preguntaIdiomaConverter}" required="true">
                                                 <f:selectItem itemLabel="#{msg.SelectOne}" noSelectionOption="true"/>
@@ -41,7 +41,7 @@
                                             <p:message for="preguntaIdiomaOne"/>
 
                                             <p:outputLabel value="#{msg.anwserSecurityOne}" for="anwserSecurityOne" />
-                                            <p:inputText id="anwserSecurityOne" value="#{securityQuestionController.anwserSecurityOne}" required="true"/>
+                                            <p:inputText id="anwserSecurityOne" value="#{securityQuestionController.anwserSecurityOne}" required="false"/>
                                             <p:message for="anwserSecurityOne"/> 
                                             
                                             <p:outputLabel value="#{msg.preguntaIdiomaTwo}" for="preguntaIdiomaTwo" />
@@ -52,10 +52,21 @@
                                             <p:message for="preguntaIdiomaTwo"/>
 
                                             <p:outputLabel value="#{msg.anwserSecurityTwo}" for="anwserSecurityTwo" />
-                                            <p:inputText id="anwserSecurityTwo" value="#{securityQuestionController.anwserSecurityTwo}" required="true"/>
+                                            <p:inputText id="anwserSecurityTwo" value="#{securityQuestionController.anwserSecurityTwo}" required="false"/>
                                             <p:message for="anwserSecurityTwo"/> 
+                                            
+                                            <p:outputLabel value="#{msg.preguntaIdiomaThree}" for="preguntaIdiomaThree" />
+                                            <p:selectOneMenu id="preguntaIdiomaThree" value="#{securityQuestionController.selectedPreguntaIdiomaThree}" converter="#{preguntaIdiomaConverter}" required="true">
+                                                <f:selectItem itemLabel="#{msg.SelectOne}" noSelectionOption="true"/>
+                                                <f:selectItems value="#{securityQuestionController.preguntaIdiomaList}" var="obj" itemLabel="#{obj.pregunta}"/>
+                                            </p:selectOneMenu> 
+                                            <p:message for="preguntaIdiomaThree"/>
+
+                                            <p:outputLabel value="#{msg.anwserSecurityThree}" for="anwserSecurityThree" />
+                                            <p:inputText id="anwserSecurityThree" value="#{securityQuestionController.anwserSecurityThree}" required="false"/>
+                                            <p:message for="anwserSecurityThree"/> 
                                         </h:panelGrid>
-                                        <p:commandButton value="submit"  icon="ui-icon-save"  action="#{securityQuestionController.submit()}" />
+                                        <p:commandButton type="button" id="guardarRespuestas" value="Guardar Respuestas"  icon="ui-icon-save" action="#{securityQuestionController.saveSecurityQuestion()}"/>
                                     </p:panel>
                                 </p:tab>
                         </div>

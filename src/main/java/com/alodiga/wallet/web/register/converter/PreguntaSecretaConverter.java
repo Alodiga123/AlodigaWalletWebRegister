@@ -1,7 +1,7 @@
 package com.alodiga.wallet.web.register.converter;
 
 import com.alodiga.wallet.common.model.CivilStatus;
-import com.alodiga.wallet.web.register.controller.securityQuestionController;
+import com.alodiga.wallet.web.register.controller.SecurityQuestionController;
 import com.ericsson.alodiga.ws.PreguntaIdioma;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,7 +21,7 @@ import javax.faces.convert.Converter;
 public class PreguntaSecretaConverter implements Converter {
 
     @ManagedProperty(value = "#{securityQuestionController}")
-    private securityQuestionController securityQuestionController;
+    private SecurityQuestionController securityQuestionController;
 
     @Override
     public Object getAsObject(FacesContext facesContext, UIComponent component, String submittedValue) {
@@ -51,7 +51,7 @@ public class PreguntaSecretaConverter implements Converter {
         }
     }
 
-    public void setSecurityQuestionController(securityQuestionController securityQuestionController) {
+    public void setSecurityQuestionController(SecurityQuestionController securityQuestionController) {
         this.securityQuestionController = securityQuestionController;
     }
 

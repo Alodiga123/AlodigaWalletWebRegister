@@ -28,6 +28,7 @@ import com.alodiga.wallet.common.model.StatusApplicant;
 import com.alodiga.wallet.common.utils.EjbConstants;
 import com.ericsson.alodiga.ws.APIRegistroUnificadoProxy;
 import com.ericsson.alodiga.ws.PreguntaIdioma;
+import com.ericsson.alodiga.ws.Respuesta;
 import com.ericsson.alodiga.ws.RespuestaPreguntasSecretas;
 import java.io.IOException;
 import java.rmi.RemoteException;
@@ -207,14 +208,20 @@ public class SecurityQuestion1Controller {
     }
     
     public void submit() {
+        FacesContext context = FacesContext.getCurrentInstance();
         if (selectedPreguntaIdiomaOne != null) {
             try {
-            apiRegistroUnificado.setPreguntasSecretasUsuarioAplicacionMovil("usuarioWS", "passwordWS", 410, String.valueOf(selectedPreguntaIdiomaOne.getPreguntaId()), anwserSecurityOne, String.valueOf(selectedPreguntaIdiomaTwo.getPreguntaId()), anwserSecurityTwo, String.valueOf(selectedPreguntaIdiomaThree.getPreguntaId()), anwserSecurityThree);
+            Respuesta respuesta = apiRegistroUnificado.setPreguntasSecretasUsuarioAplicacionMovil("usuarioWS", "passwordWS", 410, String.valueOf(selectedPreguntaIdiomaOne.getPreguntaId()), anwserSecurityOne, String.valueOf(selectedPreguntaIdiomaTwo.getPreguntaId()), anwserSecurityTwo, String.valueOf(selectedPreguntaIdiomaThree.getPreguntaId()), anwserSecurityThree);
+            if (respuesta.getCodigoRespuesta().equals("00")) {
+               context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Las respuestas del usuario se guardaron correctamente en la BD", null));
+           }else{
+             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Se presentó un problema al guardar los datos, por favor intente de nuevo", null));  
+           }
             } catch (RemoteException ex) {
                 ex.printStackTrace();
                 Logger.getLogger(SecurityQuestionController.class.getName()).log(Level.SEVERE, null, ex);      
             }
-        } 
+        }  
     }
     
     public void submit2() {

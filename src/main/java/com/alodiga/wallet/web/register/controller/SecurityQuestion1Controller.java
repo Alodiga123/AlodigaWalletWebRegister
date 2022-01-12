@@ -70,15 +70,6 @@ public class SecurityQuestion1Controller {
     private String anwserSecurityThree;
     private static APIRegistroUnificadoProxy apiRegistroUnificado;
 
-    //Business Info
-    private Country selectedCountry;
-    private State selectedState;
-    private City selectedCity;
-    private PersonType selectedPersonType;
-    private Person businessPerson;
-    private Address address;
-    private static BusinessPortalEJB proxy;
-
     @PostConstruct
     public void init() {
         try {
@@ -188,10 +179,10 @@ public class SecurityQuestion1Controller {
         this.preguntaIdiomaList = preguntaIdiomaList;
     }
 
-    public PreguntaIdioma getPreguntaIdiomaOne(int id) {
-        for (PreguntaIdioma preguntaOne : preguntaIdiomaList) {
-            if (preguntaOne.getPreguntaId() == id) {
-                return preguntaOne;
+    public PreguntaIdioma getPreguntaIdioma(int id) {
+        for (PreguntaIdioma preguntaIdioma : preguntaIdiomaList) {
+            if (preguntaIdioma.getPreguntaIdiomaId() == id) {
+                return preguntaIdioma;
             }
         }
         return null;

@@ -316,7 +316,7 @@ public class RegisterController {
                     request.update("registerForm:growl");
                     return "location";
                 } else {
-                    context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "ENTRO CONFIRM", null));
+                    //context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "ENTRO CONFIRM", null));
                     request.update("registerForm:growl");
                     return "token";
                 }
@@ -324,9 +324,9 @@ public class RegisterController {
                 System.out.println("tojken " + token);
                 System.out.println("resp " + codeToken);
                 if (token.equals(codeToken)) {
-                    context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "token valido", null));
+                    //context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "token valido", null));
                     request.update("registerForm:growl");
-                    return "Confirmation1";
+                    return "RegisterPerson";
                 } else {
                     context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "token invalido", null));
                     request.update("registerForm:growl");
@@ -351,8 +351,7 @@ public class RegisterController {
 
     
 
-    public com.alodiga.wallet.ws.DocumentsPersonType getDocumentsPersonType(long id) {
-        System.out.println("ANTES DEL FOR");
+    public com.alodiga.wallet.ws.DocumentsPersonType getDocumentsPersonType(long id) {       
         for (com.alodiga.wallet.ws.DocumentsPersonType documentPersonType : documentsPersonTypes) {
             if (documentPersonType.getId() == id) {
                 documentsPersonTypeId = documentPersonType.getId();
@@ -381,9 +380,10 @@ public class RegisterController {
              token, "AloCash WEB", null, 
              "AloCash WEB", passOperation, documentsPersonTypeId, String.valueOf(documentNumber));                                      
            if (guardar.getCodigoRespuesta().equals("00")) {
-               context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "EL usuario fue guardado exitosamente", null));
+               context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "EL usuario fue guardado exitosamente", ""));
+               FacesContext.getCurrentInstance().getExternalContext().redirect("/AlodigaWalletWeb/login.xhtml");               
            }else{
-             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "EL usuario no pudo ser guardado", null));  
+             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "EL usuario no pudo ser guardado", ""));  
            }
            
            //System.out.println("respuesta guardar usuario id" + guardar.getDatosRespuesta().getUsuarioID());
@@ -392,7 +392,7 @@ public class RegisterController {
        } catch (Exception e) {
            e.printStackTrace();
            System.out.println("ENTRO EN EL CATCH");
-           context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "No se pudo guardar el usuario ", null));
+           context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "No se pudo guardar el usuario ", ""));
        }
        
        
@@ -450,8 +450,7 @@ public class RegisterController {
         return selectedDocumentsPersonType;
     }
 
-    public void setSelectedDocumentsPersonType(com.alodiga.wallet.ws.DocumentsPersonType selectedDocumentsPersonType) {
-        System.out.println("Entro en el set selected documents");
+    public void setSelectedDocumentsPersonType(com.alodiga.wallet.ws.DocumentsPersonType selectedDocumentsPersonType) {        
         this.selectedDocumentsPersonType = selectedDocumentsPersonType;
     }
 

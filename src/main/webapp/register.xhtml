@@ -28,13 +28,13 @@
 
             <f:view contentType="text/html" id="fview">
                 <p:layoutUnit position="center" style="border: none">
-                    <h:form id="registerForm" styleClass="login-body" style="overflow:auto;height:100%">
+                    <h:form id="registerForm" >
                         <p:growl id="growl" showDetail="true" sticky="true" autoUpdate="true"/>  
-                        <div class="card login-panel ui-fluid" style="width: 800px; max-height: 80vh;overflow: auto">
+                        <div class="card login-panel ui-fluid" style="width: 800px; overflow: auto">
 
-                            <p:wizard flowListener="#{registerController.onFlowProcess}" showStepStatus="false" nextLabel="next" backLabel="atras" style="overflow: auto; height: 100%;" >
+                            <p:wizard flowListener="#{registerController.onFlowProcess}" showStepStatus="false" nextLabel="#{msg.next}" backLabel="atras"  >
                                 <p:tab id="location" title="location" >
-                                    <p:panel header="Country">
+                                    <p:panel header="Regístrate">
                                         <h:panelGrid columns="2" columnClasses="label, value">
                                             <p:outputLabel value="Pais" for="country"/>
                                             <p:selectOneMenu id="country" value="#{registerController.selectedCountry}" converter="#{countryConverter}" required="true">
@@ -43,10 +43,15 @@
                                                 <p:ajax update="@form" />
                                             </p:selectOneMenu> 
 
-                                            <p:outputLabel value="PhoneNumber" for="phoneNumber"/>
-                                            <p:panelGrid columns="3" >
-                                                <p:inputNumber id="countryCode"  thousandSeparator=""  decimalSeparator="" decimalPlaces="0" value="#{registerController.countryPhoneCode}" disabled="true" maxlength="4"/>
+                                            <p:outputLabel value="Número de Teléfono" for="phoneNumber"/>
+                                            <p:panelGrid columns="2" columnClasses="label, value">
+                                                <h:outputText value="Código de País "/>
+                                                <p:inputNumber id="countryCode"  thousandSeparator=""  decimalSeparator="" decimalPlaces="0" value="#{registerController.countryPhoneCode}" disabled="true" maxlength="4" />
+                                                
+                                                <h:outputText value="Código de Área "/>
                                                 <p:inputNumber id="areaCode" thousandSeparator=""  decimalSeparator="" decimalPlaces="0" value="#{registerController.areaCode}" required="true" maxlength="3" />
+                                                
+                                                <h:outputText value="Teléfono "/>
                                                 <p:inputNumber id="phoneNumber" thousandSeparator=""  decimalSeparator="" decimalPlaces="0" value="#{registerController.numberPhone}" required="true" maxlength="10" />
                                             </p:panelGrid>
                                         </h:panelGrid>                                      
@@ -54,16 +59,16 @@
                                 </p:tab>
 
                                 <p:tab id="Confirmation" title="Confirmation">
-                                    <p:panel header="ConfirmationPhoneNumber">
+                                    <p:panel header="Regístrate">
                                         <h:panelGrid id="confirmation" columns="3" columnClasses="grid,grid,grid">
                                             <h:panelGrid columns="2" columnClasses="label, value">
-                                                <h:outputText value="countryCode: "/>
+                                                <h:outputText value="Código de País: "/>
                                                 <h:outputText value="#{registerController.countryPhoneCode}" styleClass="outputLabel"/>
 
-                                                <h:outputText value="areaCode: "/>
+                                                <h:outputText value="Código de Área: "/>
                                                 <h:outputText value="#{registerController.areaCode}" styleClass="outputLabel"/>
 
-                                                <h:outputText value="phoneNumber: "/>
+                                                <h:outputText value="Teléfono: "/>
                                                 <h:outputText value="#{registerController.numberPhone}" styleClass="outputLabel"/>
                                             </h:panelGrid>
                                         </h:panelGrid>
@@ -73,7 +78,7 @@
                                 </p:tab>  
                                 
                                 <p:tab id="token" title="token">
-                                    <p:panel id="tokenPanel" header="tokenRecibed" >
+                                    <p:panel id="tokenPanel" header="Regístrate" >
                                         <h:outputScript library="primefaces/poll" name="poll.js" />
                                         <h:panelGrid columns="3" columnClasses="label, value, messages">           
                                             <p:outputLabel value="Introduzca la clave recibida" for="tokenRecibed"  />
@@ -84,8 +89,8 @@
                                 </p:tab>
                                 
                                 
-                                <p:tab id="Confirmation1" title="Confirmation1">
-                                    <p:panel header="ConfirmationPhoneNumber">
+<!--                                <p:tab id="Confirmation1" title="Confirmation1">
+                                    <p:panel header="Regístrate">
                                         <h:panelGrid id="confirmation1" columns="4" columnClasses="grid,grid,grid">
                                             <h:panelGrid columns="2" columnClasses="label, value">
                                                 <h:outputText value="countryCode: "/>
@@ -102,11 +107,11 @@
                                             </h:panelGrid>
                                         </h:panelGrid>
                                     </p:panel>
-                                </p:tab>
+                                </p:tab>-->
                                 
 
                                 <p:tab id="RegisterPerson" title="RegisterPerson">
-                                    <p:panel id="RegisterPersonPanel" header="Registrate">
+                                    <p:panel id="RegisterPersonPanel" header="Regístrate">
                                         <h:panelGrid columns="3" columnClasses="label, value, messages" style="width: 100%">
                                             
                                             <p:outputLabel value="Nombre" for="firstName"  />
@@ -130,12 +135,12 @@
                                             <p:message for="confirmPassword"/>
                                             
                                             <p:outputLabel value="Clave de Operaciones" for="passwordOperation"  />
-                                            <p:password id="passwordOperation" value="#{registerController.passwordOperation}" label="Password 3" required="true" size="4">
+                                            <p:password id="passwordOperation" value="#{registerController.passwordOperation}" label="Password 3" required="true" size="4" maxlength="4" validatorMessage="La clave de operaciones especiales no puede ser mayor de 4 dígitos, ejm: 1234">
                                                 <f:validateLength maximum="4" ></f:validateLength>
                                             </p:password>
-                                            <p:message for="passwordOperation"/>  
+                                            <p:message for="passwordOperation" />  
                                             
-                                            <p:outputLabel value="tipo de documento" for="typeDocument" />
+                                            <p:outputLabel value="Tipo Documento" for="typeDocument" />
                                             <p:selectOneMenu id="typeDocument" value="#{registerController.selectedDocumentsPersonType}" converter="#{documentPersonTypeConverter}" required="true">
                                                 <f:selectItem itemLabel="selecciona uno" noSelectionOption="true" itemValue="null"/>
                                                 <f:selectItems value="#{registerController.documentsPersonTypes}" var="documentsPersonType" itemLabel="#{documentsPersonType.description}" />
@@ -148,7 +153,7 @@
                                             
                                         </h:panelGrid>
                                     </p:panel>
-                                    <p:commandButton value="SUBMIT"  icon="ui-icon-save"  action="#{registerController.submit()}" />
+                                    <p:commandButton value="Guardar y Continuar"  icon="ui-icon-save"  action="#{registerController.submit()}" />
                                 </p:tab>
                             </p:wizard>
 

@@ -351,7 +351,8 @@ public class RegisterController {
 
     
 
-    public com.alodiga.wallet.ws.DocumentsPersonType getDocumentsPersonType(long id) {       
+    public com.alodiga.wallet.ws.DocumentsPersonType getDocumentsPersonType(int id) {
+        System.out.println("ANTES DEL FOR");
         for (com.alodiga.wallet.ws.DocumentsPersonType documentPersonType : documentsPersonTypes) {
             if (documentPersonType.getId() == id) {
                 documentsPersonTypeId = documentPersonType.getId();

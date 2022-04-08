@@ -28,7 +28,7 @@ public class DocumentPersonTypeConverter implements Converter {
             return "";
         }
         try {
-            return registerController.getDocumentsPersonType(Long.valueOf(submittedValue));
+            return registerController.getDocumentsPersonType(Integer.parseInt(submittedValue));
         } catch (NumberFormatException ex) {
             ex.printStackTrace();
             Logger.getLogger(DocumentPersonTypeConverter.class.getName()).log(Level.SEVERE, null, ex);
@@ -43,7 +43,7 @@ public class DocumentPersonTypeConverter implements Converter {
             return "";
         } else {
             if (value instanceof com.alodiga.wallet.ws.DocumentsPersonType) {                
-                return Long.toString(((com.alodiga.wallet.ws.DocumentsPersonType) value).getId());
+                return Integer.toString(((com.alodiga.wallet.ws.DocumentsPersonType) value).getId());
             } else {
                 return value.toString();
             }

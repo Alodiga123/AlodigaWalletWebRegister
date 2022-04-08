@@ -211,26 +211,17 @@ public class SecurityQuestion1Controller {
         FacesContext context = FacesContext.getCurrentInstance();
         if (selectedPreguntaIdiomaOne != null) {
             try {
-            Respuesta respuesta = apiRegistroUnificado.setPreguntasSecretasUsuarioAplicacionMovil("usuarioWS", "passwordWS", 410, String.valueOf(selectedPreguntaIdiomaOne.getPreguntaId()), anwserSecurityOne, String.valueOf(selectedPreguntaIdiomaTwo.getPreguntaId()), anwserSecurityTwo, String.valueOf(selectedPreguntaIdiomaThree.getPreguntaId()), anwserSecurityThree);
-            if (respuesta.getCodigoRespuesta().equals("00")) {
-               context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Las respuestas del usuario se guardaron correctamente en la BD", null));
-           }else{
-             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Se presentó un problema al guardar los datos, por favor intente de nuevo", null));  
-           }
+                Respuesta respuesta = apiRegistroUnificado.setPreguntasSecretasUsuarioAplicacionMovil("usuarioWS", "passwordWS", 410, String.valueOf(selectedPreguntaIdiomaOne.getPreguntaId()), anwserSecurityOne, String.valueOf(selectedPreguntaIdiomaTwo.getPreguntaId()), anwserSecurityTwo, String.valueOf(selectedPreguntaIdiomaThree.getPreguntaId()), anwserSecurityThree);
+                if (respuesta.getCodigoRespuesta().equals("00")) {
+                   context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Las respuestas del usuario se guardaron correctamente en la BD", null));
+                }else{
+                    context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Se presentó un problema al guardar los datos, por favor intente de nuevo", null));  
+                }
             } catch (RemoteException ex) {
                 ex.printStackTrace();
                 Logger.getLogger(SecurityQuestionController.class.getName()).log(Level.SEVERE, null, ex);      
             }
         }  
-    }
-    
-    public void submit2() {
-        addMessage("Welcome to PrimeFaces!!");
-    }
- 
-    public void addMessage(String summary) {
-        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, null);
-        FacesContext.getCurrentInstance().addMessage(null, message);
     }
 
 }

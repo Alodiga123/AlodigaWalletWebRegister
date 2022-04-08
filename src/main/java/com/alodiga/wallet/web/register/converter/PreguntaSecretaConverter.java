@@ -43,7 +43,7 @@ public class PreguntaSecretaConverter implements Converter {
             return "";
         } else {
             if (value instanceof PreguntaIdioma) {
-                return Long.toString(((PreguntaIdioma) value).getPreguntaIdiomaId());
+                return Integer.toString(((PreguntaIdioma) value).getPreguntaIdiomaId());
             } else {
                 return value.toString();
             }

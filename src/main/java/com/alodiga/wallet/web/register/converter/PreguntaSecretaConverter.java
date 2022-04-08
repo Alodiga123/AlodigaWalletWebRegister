@@ -1,7 +1,7 @@
 package com.alodiga.wallet.web.register.converter;
 
 import com.alodiga.wallet.common.model.CivilStatus;
-import com.alodiga.wallet.web.register.controller.securityQuestionController;
+import com.alodiga.wallet.web.register.controller.SecurityQuestion1Controller;
 import com.ericsson.alodiga.ws.PreguntaIdioma;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,8 +20,8 @@ import javax.faces.convert.Converter;
 @ViewScoped
 public class PreguntaSecretaConverter implements Converter {
 
-    @ManagedProperty(value = "#{securityQuestionController}")
-    private securityQuestionController securityQuestionController;
+    @ManagedProperty(value = "#{securityQuestion1Controller}")
+    private SecurityQuestion1Controller securityQuestion1Controller;
 
     @Override
     public Object getAsObject(FacesContext facesContext, UIComponent component, String submittedValue) {
@@ -29,7 +29,7 @@ public class PreguntaSecretaConverter implements Converter {
             return "";
         }
         try {
-            return securityQuestionController.getPreguntaIdioma(Integer.parseInt(submittedValue));
+            return securityQuestion1Controller.getPreguntaIdioma(Integer.parseInt(submittedValue));
         } catch (NumberFormatException ex) {
             Logger.getLogger(PreguntaSecretaConverter.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -51,8 +51,8 @@ public class PreguntaSecretaConverter implements Converter {
         }
     }
 
-    public void setSecurityQuestionController(securityQuestionController securityQuestionController) {
-        this.securityQuestionController = securityQuestionController;
+    public void setSecurityQuestion1Controller(SecurityQuestion1Controller securityQuestion1Controller) {
+        this.securityQuestion1Controller = securityQuestion1Controller;
     }
 
 }

@@ -1,31 +1,19 @@
 package com.alodiga.wallet.web.register.controller;
 
-import com.alodiga.wallet.common.ejb.BusinessPortalEJB;
-import com.alodiga.wallet.common.ejb.UtilsEJB;
-import com.alodiga.wallet.common.enumeraciones.RequestTypeE;
-import com.alodiga.wallet.common.exception.EmptyListException;
-import com.alodiga.wallet.common.exception.GeneralException;
-import com.alodiga.wallet.common.exception.NullParameterException;
-import com.alodiga.wallet.common.exception.RegisterNotFoundException;
-import com.alodiga.wallet.common.genericEJB.EJBRequest;
-import com.alodiga.wallet.common.model.Address;
-import com.alodiga.wallet.common.model.AffiliationRequest;
-import com.alodiga.wallet.common.model.BusinessCategory;
-import com.alodiga.wallet.common.model.City;
-import com.alodiga.wallet.common.model.CivilStatus;
-import com.alodiga.wallet.common.model.Country;
-import com.alodiga.wallet.common.model.CollectionType;
-import com.alodiga.wallet.common.model.CollectionsRequest;
-import com.alodiga.wallet.common.model.DocumentsPersonType;
-import com.alodiga.wallet.common.model.Person;
-import com.alodiga.wallet.common.model.PersonType;
-import com.alodiga.wallet.common.model.PhonePerson;
-import com.alodiga.wallet.common.model.PhoneType;
-import com.alodiga.wallet.common.model.Profession;
-import com.alodiga.wallet.common.model.RequestType;
-import com.alodiga.wallet.common.model.State;
-import com.alodiga.wallet.common.model.StatusApplicant;
-import com.alodiga.wallet.common.utils.EjbConstants;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import com.ericsson.alodiga.ws.PreguntaIdioma;
+import com.ericsson.alodiga.ws.APIRegistroUnificadoProxy;
+import com.ericsson.alodiga.ws.RespuestaPreguntasSecretas;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -36,35 +24,34 @@ import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import org.primefaces.event.FlowEvent;
-import com.ericsson.alodiga.ws.PreguntaIdioma;
-import com.ericsson.alodiga.ws.APIRegistroUnificadoProxy;
-import com.ericsson.alodiga.ws.PreguntaSecreta;
-import com.ericsson.alodiga.ws.RespuestaPreguntasSecretas;
 import java.rmi.RemoteException;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 
 /**
  *
- * @author henry
+ * @author Jesús Gómez
  */
 @ManagedBean(name = "securityQuestionController")
 @ViewScoped
-public class securityQuestionController {
+public class SecurityQuestionController {
 
     private RespuestaPreguntasSecretas securityQuestionList;
     private List<PreguntaIdioma> preguntaIdiomaList = new ArrayList();
     private PreguntaIdioma preguntaIdiomaOne;
     private PreguntaIdioma preguntaIdiomaTwo;
+    private PreguntaIdioma preguntaIdiomaThree;
     private PreguntaIdioma selectedPreguntaIdiomaOne;
     private PreguntaIdioma selectedPreguntaIdiomaTwo;
+    private PreguntaIdioma selectedPreguntaIdiomaThree;
     private String anwserSecurityOne;
     private String anwserSecurityTwo;
+    private String anwserSecurityThree;
     private static APIRegistroUnificadoProxy apiRegistroUnificado;
 
     @PostConstruct
@@ -86,10 +73,11 @@ public class securityQuestionController {
                 }
             
             } catch (RemoteException ex) {
-                Logger.getLogger(securityQuestionController.class.getName()).log(Level.SEVERE, null, ex);      
+                Logger.getLogger(SecurityQuestionController.class.getName()).log(Level.SEVERE, null, ex);      
             }
         } catch (NamingException ex) {
-            Logger.getLogger(securityQuestionController.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
+            Logger.getLogger(SecurityQuestionController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -149,6 +137,30 @@ public class securityQuestionController {
         this.anwserSecurityTwo = anwserSecurityTwo;
     }
 
+    public PreguntaIdioma getPreguntaIdiomaThree() {
+        return preguntaIdiomaThree;
+    }
+
+    public void setPreguntaIdiomaThree(PreguntaIdioma preguntaIdiomaThree) {
+        this.preguntaIdiomaThree = preguntaIdiomaThree;
+    }
+
+    public PreguntaIdioma getSelectedPreguntaIdiomaThree() {
+        return selectedPreguntaIdiomaThree;
+    }
+
+    public void setSelectedPreguntaIdiomaThree(PreguntaIdioma selectedPreguntaIdiomaThree) {
+        this.selectedPreguntaIdiomaThree = selectedPreguntaIdiomaThree;
+    }
+
+    public String getAnwserSecurityThree() {
+        return anwserSecurityThree;
+    }
+
+    public void setAnwserSecurityThree(String anwserSecurityThree) {
+        this.anwserSecurityThree = anwserSecurityThree;
+    }
+
     public List<PreguntaIdioma> getPreguntaIdiomaList() {
         return preguntaIdiomaList;
     }
@@ -166,12 +178,26 @@ public class securityQuestionController {
         return null;
     }
     
-    public void submit() {
-        try {
-            apiRegistroUnificado.setPreguntasSecretasUsuarioAplicacionMovil("usuarioWS", "passwordWS", 410, String.valueOf(getSelectedPreguntaIdiomaOne().getPreguntaId()), getAnwserSecurityOne(), String.valueOf(getSelectedPreguntaIdiomaTwo()), getAnwserSecurityTwo(), null, null);
-        } catch (RemoteException ex) {
-            Logger.getLogger(securityQuestionController.class.getName()).log(Level.SEVERE, null, ex);      
-        }
+    
+    
+    public void saveSecurityQuestion() {        
+        if (getSelectedPreguntaIdiomaOne() != null) {
+            try {
+            apiRegistroUnificado.setPreguntasSecretasUsuarioAplicacionMovil("usuarioWS", "passwordWS", 410, String.valueOf(getSelectedPreguntaIdiomaOne().getPreguntaId()), getAnwserSecurityOne(), String.valueOf(getSelectedPreguntaIdiomaTwo()), getAnwserSecurityTwo(), String.valueOf(getSelectedPreguntaIdiomaThree()), getAnwserSecurityThree());
+            } catch (RemoteException ex) {
+                ex.printStackTrace();
+                Logger.getLogger(SecurityQuestionController.class.getName()).log(Level.SEVERE, null, ex);      
+            }
+        }            
+    }
+    
+    public void buttonAction() {
+        addMessage("Welcome to PrimeFaces!!");
+    }
+ 
+    public void addMessage(String summary) {
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, null);
+        FacesContext.getCurrentInstance().addMessage(null, message);
     }
         
 
